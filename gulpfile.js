@@ -1,16 +1,42 @@
-var elixir = require('laravel-elixir');
+var gulp = require('gulp'),
+    sass = require('gulp-sass'),
+    notify = require('gulp-notify');
 
-/*
- |--------------------------------------------------------------------------
- | Elixir Asset Management
- |--------------------------------------------------------------------------
- |
- | Elixir provides a clean, fluent API for defining some basic Gulp tasks
- | for your Laravel application. By default, we are compiling the Sass
- | file for our application, as well as publishing vendor resources.
- |
- */
+var source = {
+  sass: './resources/assets/sass/**/*',
+  imgs: './resources/assets/images/**/*'
+};
 
-elixir(function(mix) {
-    mix.sass('app.scss');
+var dest = {
+    css:   './public/css/',
+    js:    './public/js/',
+    fonts: './public/fonts',
+    imgs: './public/images'
+}
+
+gulp.task('css', function() {
+    gulp.src(source.sass)
+        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+        .pipe(gulp.dest(dest.css));
 });
+
+gulp.task('js', function(){
+    gulp.src('./bower_components/webcomponentsjs/webcomponents-lite.js')
+        .pipe(gulp.dest(dest.js));
+});
+
+gulp.task('fonts', function() {
+    gulp.src('./node_modules/font-awesome/fonts/*')
+        .pipe(gulp.dest(dest.fonts));
+});
+
+gulp.task('images', function() {
+    gulp.src(source.imgs)
+        .pipe(gulp.dest(dest.imgs));
+});
+
+gulp.task('watch', function() {
+  gulp.watch(source.sass + '*.scss', ['css']);
+});
+
+gulp.task('deploy', ['css', 'js', 'images']);
