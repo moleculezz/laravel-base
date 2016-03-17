@@ -21,8 +21,7 @@ gulp.task('css', function() {
 });
 
 gulp.task('js', function(){
-    gulp.src('./bower_components/webcomponentsjs/webcomponents-lite.js')
-        .pipe(gulp.dest(dest.js));
+
 });
 
 gulp.task('fonts', function() {
