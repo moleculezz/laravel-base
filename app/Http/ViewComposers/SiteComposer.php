@@ -17,6 +17,7 @@ class SiteComposer
      */
     public function compose(View $view)
     {
-        $view->with('site_name', Config::get('site.name'));
+        $view->with('site_name', Config::get('site.name'))
+             ->with('site_title_suffix', Config::get('site.title_suffix'));
     }
 }
