@@ -3,7 +3,6 @@
 namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
-use App\Http\Controllers\Controller;
 use Config;
 
 class SiteComposer
